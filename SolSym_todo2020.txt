@@ -1,0 +1,40 @@
+Solar system simulater 20/21 changes needed (very) roughly in order of importance:
+
+0. Add code to github. Is there a risk of it being found, probably don't mention glasgow/labs/solar system simulator etc. 
+	0b. Student code should be on github too.
+
+1. Either remove Spiceypy from or get it installed on hub.
+
+	1b. Actually, best to change the frame of reference of the example data and then introduce either my manual way of swapping to the ecliptic reference frame via astropy coordinates or via spiceypy by pointing out that the data is inclined by 23.5*
+
+	Do this ^
+
+	Worried about the effect both python in general and the change to 1. Will have on the difficulty of the project.
+
+2. Write up more in depth example projects on the wiki.
+	-Galaxy collision
+	-Black hole encounter
+	-Satellite orbit
+		-Gravity boost?
+	-Transit events for external observer (e.g. Kepler)
+	-Stability of Lagrange points
+	-Testing the accuracy of the simulator in depth (e.g. changing order, forcing timesteps longer/shorter).
+	-etc.
+	
+3. Related to 2, at least some of these coded up in python as a reference for demonstrators (not for the eyes of students).
+
+4. Have been unhappy with GR correction term actually improving results, probably worth checking and deciding; if not an improvement are we actually teaching the students anything by including it? It needs replacing like for like, changing the differential equations is a key step in understanding the project...	 
+
+5. Related to 2, wiki in general could probably use some improvements. Learning outcomes put right at the top.
+	
+	!!!This is actually a priority now due to distance learning!!! It probably needs 3x atleast as much detail.
+
+6. Related to simulator accuracy project, the documentation for scipy.integrate.odeint and scipy.integrate.solve_ivp are total garbage. The foreign Fortran functions LSODA/E are adaptive solvers, python returns fixed steps from presumably interpolation, the infodict material obviously doesn't match cleanly with stepsizes or stepcounts plus misses key diagnostic values.
+
+It may not matter to students but there is obviously a weak understanding of the inner workings of solve_ivp/odeint/LSODA-E that makes some detailed projects near impossible and prevents in depth explanations to students who care about the numerical method from truly hitting home (since they can't take what you tell them and test it out with these python functions (unlike in the previous Matlab)
+
+	6bc So an actual action? If we force tolerances and observe stepsize changes in infodict['hu'] can we invert this for a simple example on tolerances?
+	
+	Seems reasonable to include this as an example script that can be pointed to at appropriate moment. 
+
+	6c. Can also force max order? This will likely just reduce step size but might indicate runtime tradeoff/precision tradeoff.
